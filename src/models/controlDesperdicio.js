@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const controlDesperdicioSchema = new Schema({
-    codigoDocumento: {type: String, required: true},
     nroRevision: {type: Number, required: true},
     area: {type: String, required: true},
     fecha: {type: Date, default: Date.now},
