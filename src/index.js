@@ -16,7 +16,7 @@ app.use(express.json());
 app.use('/api', controlDesperdicio);
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send('Hello World');    
 });
 
 app.listen(port, () => {
