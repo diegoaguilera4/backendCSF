@@ -18,9 +18,9 @@ const controlDesperdicioSchema = new Schema({
     cliente: {type: String, required: true},
     producto: {type: String, required: true},
     cantidad: {type: Number, required: true},
-    nroOp: {type: Number, required: true},
+    nroOp: {type: String, required: true},
     autorizaPicar: {type: String, required: true},
-    totalKilos: {type: Number, required: true}
+    totalKilos: {type: Number, required: true},
 });
 
 
