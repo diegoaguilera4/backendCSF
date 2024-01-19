@@ -19,11 +19,10 @@ const controlDesperdicioSchema = new Schema({
     producto: {type: String, required: true},
     cantidad: {type: Number, required: true},
     nroOp: {type: String, required: true},
-    autorizaPicar: {type: String, required: true},
+    estNumber: {type: String, required: true},
+    autorizaPicar: {type: String},
     totalKilos: {type: Number},
 });
-
-
 
 const ControlDesperdicio = mongoose.model("controlDesperdicio", controlDesperdicioSchema);
 
