@@ -14,13 +14,13 @@ const controlDesperdicioSchema = new Schema({
     defectoEnCaja: {type: String, required: true},
     defectoEnCajaOtros: {type: String},
     causaCaja: {type: String},
-    operadorPicadora: {type: String, required: true},
+    operadorPicadora: {type: String },
     cliente: {type: String, required: true},
     producto: {type: String, required: true},
     cantidad: {type: Number, required: true},
     nroOp: {type: String, required: true},
     autorizaPicar: {type: String, required: true},
-    totalKilos: {type: Number, required: true},
+    totalKilos: {type: Number},
 });
 
 
