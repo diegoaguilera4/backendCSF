@@ -32,6 +32,16 @@ export const obtenerPersonaPorId = async (req, res) => {
   }
 };
 
+//obtener persona por rut
+export const obtenerPersonaPorRut = async (req, res) => {
+  try {
+    const persona = await Persona.findOne({ rut: req.params.rut });
+    res.status(200).json(persona);
+  } catch (error) {
+    res.status(404).json({ mensaje: error.message });
+  }
+};
+
 // actualizar una persona por id
 export const actualizarPersona = async (req, res) => {
   try {
