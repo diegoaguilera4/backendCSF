@@ -3,6 +3,7 @@ import cors from 'cors'; // Debes importar 'cors' antes de usarlo
 import dotenv from 'dotenv';
 import controlDesperdicio from './routes/controlDesperdicio.js';
 import consultaSql  from './routes/consultaSql.js';
+import persona from './routes/persona.js';
 
 //Configura dotenv para cargar las variables de entorno desde el archivo .env
 dotenv.config({ path: './.env' });
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use('/api', controlDesperdicio);
 app.use('/sql', consultaSql);
+app.use('/personas', persona);
 
 
 app.get('/', (req, res) => {
