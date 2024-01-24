@@ -3,21 +3,22 @@ import miDB from "../db/index.js";
 
 // agregar un nuevo registro
 export const agregarRegistro = async (req, res) => {
-    try {
-      const persona = req.body.persona;
-      const ultimoRegistro = await Registro.findOne({ persona: persona }).sort({ $natural: -1 });
-      console.log(ultimoRegistro);
-      let tipo = "entrada";
-      if (ultimoRegistro) {
-        tipo = ultimoRegistro.tipo === "entrada" ? "salida" : "entrada";
-      }
-      const nuevoRegistro = new Registro({ ...req.body, tipo: tipo });
-      await nuevoRegistro.save();
-      res.status(201).json(nuevoRegistro);
-    } catch (error) {
-      res.status(400).json({ mensaje: error.message });
+  try {
+    const persona = req.body.persona;
+    const ultimoRegistro = await Registro.findOne({ persona: persona }).sort({
+      $natural: -1,
+    });
+    let tipo = "entrada";
+    if (ultimoRegistro) {
+      tipo = ultimoRegistro.tipo === "entrada" ? "salida" : "entrada";
     }
-  };
+    const nuevoRegistro = new Registro({ ...req.body, tipo: tipo });
+    await nuevoRegistro.save();
+    res.status(201).json(nuevoRegistro);
+  } catch (error) {
+    res.status(400).json({ mensaje: error.message });
+  }
+};
 
 // obtener todos los registros
 export const obtenerRegistros = async (req, res) => {
