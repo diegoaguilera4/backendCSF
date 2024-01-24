@@ -4,12 +4,14 @@ const { Schema } = mongoose;
 const personaSchema = new Schema({
     nombre: { type: String, required: true },
     rut: { type: String, required: true, unique: true},
+    d_cencos: { type: String, required: true },
+    d_cargo: { type: String, required: true },
     autos: [
         {
-            marca: { type: String, required: true },
-            modelo: { type: String, required: true },
-            patente: { type: String, required: true, unique: true},
-            color: { type: String, required: true },
+            marca: { type: String},
+            modelo: { type: String},
+            patente: { type: String},
+            color: { type: String},
         }
     ],
 });
