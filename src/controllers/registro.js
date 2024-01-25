@@ -23,12 +23,31 @@ export const agregarRegistro = async (req, res) => {
 // obtener todos los registros
 export const obtenerRegistros = async (req, res) => {
   try {
-    const registros = await Registro.find();
-    res.status(200).json(registros);
+    const registros = await Registro.find().populate({
+      path: 'persona',
+      select: 'nombre rut d_cencos d_cargo',
+    });
+
+    // Transformar los resultados para que "persona" sea un objeto con campos individuales
+    const registrosTransformados = registros.map((registro) => ({
+      _id: registro._id,
+      nombre: registro.persona.nombre,
+      rut: registro.persona.rut,
+      d_cencos: registro.persona.d_cencos,
+      d_cargo: registro.persona.d_cargo,
+      fechaHora: registro.fechaHora,
+      tipo: registro.tipo,
+      __v: registro.__v,
+    }));
+
+    res.status(200).json(registrosTransformados);
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
   }
 };
+
+
+
 
 // obtener un registro por id
 export const obtenerRegistroPorId = async (req, res) => {
