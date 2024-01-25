@@ -1,24 +1,35 @@
 import Registro from "../models/registro.js";
 import miDB from "../db/index.js";
 
-// agregar un nuevo registro
+
 export const agregarRegistro = async (req, res) => {
   try {
     const persona = req.body.persona;
     const ultimoRegistro = await Registro.findOne({ persona: persona }).sort({
       $natural: -1,
     });
+
     let tipo = "entrada";
     if (ultimoRegistro) {
       tipo = ultimoRegistro.tipo === "entrada" ? "salida" : "entrada";
     }
-    const nuevoRegistro = new Registro({ ...req.body, tipo: tipo });
+
+    // Obtener la fecha actual en GMT-3
+    const fechaActual = new Date();
+    fechaActual.setHours(fechaActual.getHours() - 3);
+
+    // Crear el nuevo registro con la fecha ajustada
+    const nuevoRegistro = new Registro({ ...req.body, tipo: tipo, fechaHora: fechaActual });
+
+    // Guardar el nuevo registro en la base de datos
     await nuevoRegistro.save();
+
     res.status(201).json(nuevoRegistro);
   } catch (error) {
     res.status(400).json({ mensaje: error.message });
   }
 };
+
 
 // obtener todos los registros
 export const obtenerRegistros = async (req, res) => {
