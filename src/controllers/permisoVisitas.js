@@ -1,4 +1,4 @@
-import Visitas from "../models/visitas.js";
+import Visitas from "../models/permisoVisitas.js";
 import miDB from "../db/index.js";
 
 // agregar una visita

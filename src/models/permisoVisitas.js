@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const visitasSchema = new Schema({
+const permisoVisitaSchema = new Schema({
     nombre: { type: String, required: true },
     rut: { type: String, required: true, unique: true},
     motivo: { type: String, required: true },
@@ -9,6 +9,6 @@ const visitasSchema = new Schema({
     fechaTermino: { type: Date, required: true},
 });
 
-const Visitas = mongoose.model("Visitas", visitasSchema);
+const permisoVisita = mongoose.model("Permiso Visita", permisoVisitaSchema);
 
-export default Visitas;
+export default permisoVisita;

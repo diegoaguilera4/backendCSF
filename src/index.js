@@ -5,7 +5,9 @@ import controlDesperdicio from './routes/controlDesperdicio.js';
 import consultaSql  from './routes/consultaSql.js';
 import persona from './routes/persona.js';
 import registro from './routes/registro.js';
-import visita from './routes/visitas.js';
+import permisoVisita from './routes/permisoVisitas.js';
+import registroVisita from './routes/registroVisita.js';
+
 
 //Configura dotenv para cargar las variables de entorno desde el archivo .env
 dotenv.config({ path: './.env' });
@@ -21,7 +23,8 @@ app.use('/api', controlDesperdicio);
 app.use('/sql', consultaSql);
 app.use('/personas', persona);
 app.use('/registros', registro);
-app.use('/visitas', visita);
+app.use('/permisoVisitas', permisoVisita);
+app.use('/registroVisitas', registroVisita);
 
 
 
