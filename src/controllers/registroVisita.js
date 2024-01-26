@@ -4,9 +4,27 @@ import miDB from "../db/index.js";
 //agregar registro de visita
 export const agregarRegistroVisita = async (req, res) => {
   try {
-    const nuevoRegistroVisita = new RegistroVisita(req.body);
-    await nuevoRegistroVisita.save();
-    res.status(201).json(nuevoRegistroVisita);
+    const permiso = req.body.permiso;
+    const ultimoRegistro = await RegistroVisita.findOne({ permiso: permiso }).sort({
+      $natural: -1,
+    });
+
+    let tipo = "entrada";
+    if (ultimoRegistro) {
+      tipo = ultimoRegistro.tipo === "entrada" ? "salida" : "entrada";
+    }
+
+    // Obtener la fecha actual en GMT-3
+    const fechaActual = new Date();
+    fechaActual.setHours(fechaActual.getHours() - 3);
+
+    // Crear el nuevo registro con la fecha ajustada
+    const nuevoRegistro = new RegistroVisita({ ...req.body, tipo: tipo, fechaHora: fechaActual });
+
+    // Guardar el nuevo registro en la base de datos
+    await nuevoRegistro.save();
+
+    res.status(201).json(nuevoRegistro);
   } catch (error) {
     res.status(400).json({ mensaje: error.message });
   }
@@ -16,7 +34,15 @@ export const agregarRegistroVisita = async (req, res) => {
 export const obtenerRegistrosVisitas = async (req, res) => {
   try {
     const registrosVisita = await RegistroVisita.find().populate("permiso");
-    res.status(200).json(registrosVisita);
+    const registrosTransformados = registrosVisita.map((registroVisitas) => ({
+      _id: registroVisitas._id,
+      nombre: registroVisitas.permiso.nombre,
+      rut: registroVisitas.permiso.rut,
+      motivo: registroVisitas.permiso.motivo,
+      fechaHora: registroVisitas.fechaHora,
+      tipo: registroVisitas.tipo,
+    }));
+    res.status(200).json(registrosTransformados);
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
   }
@@ -25,7 +51,9 @@ export const obtenerRegistrosVisitas = async (req, res) => {
 // obtener un registro de visita por id
 export const obtenerRegistroVisitaPorId = async (req, res) => {
   try {
-    const registroVisita = await RegistroVisita.findById(req.params.id).populate("permiso");
+    const registroVisita = await RegistroVisita.findById(
+      req.params.id
+    ).populate("permiso");
     res.status(200).json(registroVisita);
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
