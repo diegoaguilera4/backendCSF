@@ -60,9 +60,31 @@ export const eliminarVisita = async (req, res) => {
 // obtener una visita por rut
 export const obtenerVisitaPorRut = async (req, res) => {
   try {
-    const visita = await Visitas.findOne({ rut: req.params.rut });
-    res.status(200).json(visita);
+    const { rut, fecha } = req.params;
+
+    // Verificar si se proporcionó la fecha en los parámetros de la URL
+    if (!fecha) {
+      return res.status(400).json({ mensaje: 'La fecha es requerida en los parámetros de la URL.' });
+    }
+
+    const visita = await Visitas.findOne({ rut });
+
+    // Verificar si la visita fue encontrada
+    if (!visita) {
+      return res.status(404).json({ mensaje: 'Visita no encontrada.' });
+    }
+
+    // Verificar si la fecha está dentro del rango de la visita
+    const fechaInicio = new Date(visita.fechaInicio);
+    const fechaTermino = new Date(visita.fechaTermino);
+    const fechaBuscada = new Date(fecha);
+
+    if (fechaBuscada >= fechaInicio && fechaBuscada <= fechaTermino) {
+      return res.status(200).json(visita);
+    } else {
+      return res.status(404).json({ mensaje: 'La fecha no está dentro del rango de la visita.' });
+    }
   } catch (error) {
-    res.status(404).json({ mensaje: error.message });
+    res.status(500).json({ mensaje: error.message });
   }
 };

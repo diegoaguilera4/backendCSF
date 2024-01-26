@@ -26,7 +26,11 @@ export const obtenerPersonas = async (req, res) => {
 export const obtenerPersonaPorId = async (req, res) => {
   try {
     const persona = await Persona.findById(req.params.id);
-    res.status(200).json(persona);
+    if (persona == null) {
+      res.status(404).json({ mensaje: "Persona no encontrada" });
+    } else {
+      res.status(200).json(persona);
+    }
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
   }
@@ -36,7 +40,11 @@ export const obtenerPersonaPorId = async (req, res) => {
 export const obtenerPersonaPorRut = async (req, res) => {
   try {
     const persona = await Persona.findOne({ rut: req.params.rut });
-    res.status(200).json(persona);
+    if (persona == null) {
+      res.status(404).json({ mensaje: "Persona no encontrada" });
+    } else {
+      res.status(200).json(persona);
+    }
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
   }
@@ -45,11 +53,9 @@ export const obtenerPersonaPorRut = async (req, res) => {
 // actualizar una persona por id
 export const actualizarPersona = async (req, res) => {
   try {
-    const persona = await Persona.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const persona = await Persona.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     res.status(200).json(persona);
   } catch (error) {
     res.status(500).json({ mensaje: error.message });
@@ -65,5 +71,3 @@ export const eliminarPersona = async (req, res) => {
     res.status(500).json({ mensaje: error.message });
   }
 };
-
-
