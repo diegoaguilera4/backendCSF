@@ -63,7 +63,15 @@ export const obtenerVersionControlDesperdicioPorId = async (req, res) => {
             "No se encontró la versión con el nroRevision proporcionado.",
         });
     }
-    res.status(200).json(version);
+    //agregar cantidad de versiones a la version
+   
+    //Crear objeto con la cantidad de versiones y la version
+    const versionAux = {
+      cantidadVersiones: controlDesperdicio.versiones.length,
+      version: version,
+    };
+    res.status(200).json(versionAux);
+    
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
   }
