@@ -3,6 +3,7 @@ import{
     agregarControlDesperdicio,
     obtenerControlDesperdicio,
     obtenerControlDesperdicioPorId,
+    obtenerVersionControlDesperdicioPorId,
     actualizarControlDesperdicio,
     eliminarControlDesperdicio
 } from '../controllers/controlDesperdicio.js';
@@ -12,6 +13,7 @@ const controlDesperdicio = express.Router();
 controlDesperdicio.post('/agregar', agregarControlDesperdicio);
 controlDesperdicio.get('/obtenerTodos', obtenerControlDesperdicio);
 controlDesperdicio.get('/obtener/:id', obtenerControlDesperdicioPorId);
+controlDesperdicio.get('/obtenerVersion/:id/:nroRevision', obtenerVersionControlDesperdicioPorId);
 controlDesperdicio.put('/actualizar/:id', actualizarControlDesperdicio);
 controlDesperdicio.delete('/eliminar/:id', eliminarControlDesperdicio);
 
