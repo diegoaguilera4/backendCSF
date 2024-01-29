@@ -4,22 +4,13 @@ import miDB from "../db/index.js";
 //agregar registro de visita
 export const agregarRegistroVisita = async (req, res) => {
   try {
-    const permiso = req.body.permiso;
-    const ultimoRegistro = await RegistroVisita.findOne({ permiso: permiso }).sort({
-      $natural: -1,
-    });
-
-    let tipo = "entrada";
-    if (ultimoRegistro) {
-      tipo = ultimoRegistro.tipo === "entrada" ? "salida" : "entrada";
-    }
 
     // Obtener la fecha actual en GMT-3
     const fechaActual = new Date();
     fechaActual.setHours(fechaActual.getHours() - 3);
 
     // Crear el nuevo registro con la fecha ajustada
-    const nuevoRegistro = new RegistroVisita({ ...req.body, tipo: tipo, fechaHora: fechaActual });
+    const nuevoRegistro = new RegistroVisita({ ...req.body, fechaHora: fechaActual });
 
     // Guardar el nuevo registro en la base de datos
     await nuevoRegistro.save();
