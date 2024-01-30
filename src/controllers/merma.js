@@ -15,7 +15,10 @@ export const agregarMerma = async (req, res) => {
 // obtener todas las mermas
 export const obtenerMermas = async (req, res) => {
   try {
-    const mermas = await Merma.find();
+    const mermas = await Merma.find().populate({
+        path: 'persona',
+        select: 'nombre rut',
+      });
     res.status(200).json(mermas);
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
