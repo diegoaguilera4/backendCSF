@@ -5,7 +5,7 @@ const versionControlSchema = new Schema({
     nroRevision: { type: Number, required: true },
     tipo: { type: String, required: true },
     area: { type: String, required: true },
-    defecto: { type: String, required: true },
+    causa: { type: String, required: true },
     fecha: { type: Date, default: Date.now },
     turno: { type: Number, required: true },
     responsable: { type: String, required: true },
