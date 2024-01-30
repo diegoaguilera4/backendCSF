@@ -36,11 +36,9 @@ export const obtenerControlDesperdicioPorId = async (req, res) => {
   try {
     const controlDesperdicio = await ControlDesperdicio.findById(req.params.id);
     if (!controlDesperdicio) {
-      return res
-        .status(404)
-        .json({
-          mensaje: "No se encontró el registro con el idAux proporcionado.",
-        });
+      return res.status(404).json({
+        mensaje: "No se encontró el registro con el idAux proporcionado.",
+      });
     }
     res.status(200).json(controlDesperdicio);
   } catch (error) {
@@ -56,22 +54,42 @@ export const obtenerVersionControlDesperdicioPorId = async (req, res) => {
       (version) => version.nroRevision == req.params.nroRevision
     );
     if (!version) {
-      return res
-        .status(404)
-        .json({
-          mensaje:
-            "No se encontró la versión con el nroRevision proporcionado.",
-        });
+      return res.status(404).json({
+        mensaje: "No se encontró la versión con el nroRevision proporcionado.",
+      });
     }
     //agregar cantidad de versiones a la version
-   
+
     //Crear objeto con la cantidad de versiones y la version
     const versionAux = {
       cantidadVersiones: controlDesperdicio.versiones.length,
       version: version,
     };
     res.status(200).json(versionAux);
-    
+  } catch (error) {
+    res.status(404).json({ mensaje: error.message });
+  }
+};
+
+//obtener control por idAux y devolver ultima version
+export const obtenerControlDesperdicioPorIdAux = async (req, res) => {
+  try {
+    const controlDesperdicio = await ControlDesperdicio.findOne({
+      idAux: req.params.idAux,
+    });
+    const version =
+      controlDesperdicio.versiones[controlDesperdicio.versiones.length - 1];
+    if (!version) {
+      return res.status(404).json({
+        mensaje: "No se encontró la versión con el nroRevision proporcionado.",
+      });
+    }
+    //agregar cantidad de versiones a la version
+    const versionAux = {
+      idAux: controlDesperdicio.idAux,
+      version: version,
+    };
+    res.status(200).json(versionAux);
   } catch (error) {
     res.status(404).json({ mensaje: error.message });
   }
@@ -82,11 +100,9 @@ export const actualizarControlDesperdicio = async (req, res) => {
     const controlDesperdicio = await ControlDesperdicio.findById(req.params.id);
 
     if (!controlDesperdicio) {
-      return res
-        .status(404)
-        .json({
-          mensaje: "No se encontró el registro con el idAux proporcionado.",
-        });
+      return res.status(404).json({
+        mensaje: "No se encontró el registro con el idAux proporcionado.",
+      });
     }
 
     // Agrega la nueva versión al array de versiones
