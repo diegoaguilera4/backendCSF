@@ -87,6 +87,7 @@ export const obtenerControlDesperdicioPorIdAux = async (req, res) => {
     const versionAux = {
       idAux: controlDesperdicio.idAux,
       version: version,
+      id: controlDesperdicio._id,
     };
     res.status(200).json(versionAux);
   } catch (error) {

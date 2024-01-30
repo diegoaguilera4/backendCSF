@@ -8,6 +8,7 @@ import registro from './routes/registro.js';
 import permisoVisita from './routes/permisoVisitas.js';
 import registroVisita from './routes/registroVisita.js';
 import merma from './routes/merma.js';
+import controlPicadora from './routes/controlPicadora.js';
 
 //Configura dotenv para cargar las variables de entorno desde el archivo .env
 dotenv.config({ path: './.env' });
@@ -26,6 +27,7 @@ app.use('/registros', registro);
 app.use('/permisoVisitas', permisoVisita);
 app.use('/registroVisitas', registroVisita);
 app.use('/merma', merma);
+app.use('/controlPicadora', controlPicadora);
 
 
 
