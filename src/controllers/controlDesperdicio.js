@@ -1,6 +1,5 @@
 import ControlDesperdicio from "../models/controlDesperdicio.js";
 import miDB from "../db/index.js";
-import MongoClient from "mongodb";
 
 //agregar un nuevo control de desperdicio con la variable idAux en incremental
 export const agregarControlDesperdicio = async (req, res) => {
