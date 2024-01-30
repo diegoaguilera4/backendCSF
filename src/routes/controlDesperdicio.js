@@ -6,6 +6,7 @@ import{
     obtenerVersionControlDesperdicioPorId,
     obtenerControlDesperdicioPorIdAux,
     actualizarControlDesperdicio,
+    actualizarControlDesperdicioId,
     eliminarControlDesperdicio
 } from '../controllers/controlDesperdicio.js';
 
@@ -17,6 +18,7 @@ controlDesperdicio.get('/obtener/:id', obtenerControlDesperdicioPorId);
 controlDesperdicio.get('/obtenerVersion/:id/:nroRevision', obtenerVersionControlDesperdicioPorId);
 controlDesperdicio.get('/obtenerPorIdAux/:idAux', obtenerControlDesperdicioPorIdAux);
 controlDesperdicio.put('/actualizar/:id', actualizarControlDesperdicio);
+controlDesperdicio.put('/actualizarId/:id', actualizarControlDesperdicioId);
 controlDesperdicio.delete('/eliminar/:id', eliminarControlDesperdicio);
 
 export default controlDesperdicio;

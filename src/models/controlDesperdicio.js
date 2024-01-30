@@ -19,6 +19,7 @@ const versionControlSchema = new Schema({
 const controlDesperdicioSchema = new Schema({
   idAux: { type: Number, default: 1, unique: true },
   versiones: [versionControlSchema],
+  picado: { type: Boolean, default: false },
 });
 
 const ControlDesperdicio = mongoose.model(

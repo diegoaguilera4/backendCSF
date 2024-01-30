@@ -88,6 +88,7 @@ export const obtenerControlDesperdicioPorIdAux = async (req, res) => {
       idAux: controlDesperdicio.idAux,
       version: version,
       id: controlDesperdicio._id,
+      picado: controlDesperdicio.picado,
     };
     res.status(200).json(versionAux);
   } catch (error) {
@@ -117,6 +118,23 @@ export const actualizarControlDesperdicio = async (req, res) => {
     res.status(500).json({ mensaje: "Error interno del servidor." });
   }
 };
+
+//actualizar un control de desperdicio por id
+export const actualizarControlDesperdicioId = async (req, res) => {
+  try {
+    const controlDesperdicio = await ControlDesperdicio.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
+    res.status(200).json(controlDesperdicio);
+  } catch (error) {
+    res.status(500).json({ mensaje: error.message });
+  }
+};
+
 
 // eliminar un control de desperdicio por id
 export const eliminarControlDesperdicio = async (req, res) => {
