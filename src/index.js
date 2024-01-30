@@ -1,14 +1,10 @@
 import express from 'express';
 import cors from 'cors'; // Debes importar 'cors' antes de usarlo
 import dotenv from 'dotenv';
-import controlDesperdicio from './routes/controlDesperdicio.js';
-import consultaSql  from './routes/consultaSql.js';
 import persona from './routes/persona.js';
 import registro from './routes/registro.js';
 import permisoVisita from './routes/permisoVisitas.js';
 import registroVisita from './routes/registroVisita.js';
-import merma from './routes/merma.js';
-import controlPicadora from './routes/controlPicadora.js';
 
 //Configura dotenv para cargar las variables de entorno desde el archivo .env
 dotenv.config({ path: './.env' });
@@ -20,14 +16,10 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use('/api', controlDesperdicio);
-app.use('/sql', consultaSql);
 app.use('/personas', persona);
 app.use('/registros', registro);
 app.use('/permisoVisitas', permisoVisita);
 app.use('/registroVisitas', registroVisita);
-app.use('/merma', merma);
-app.use('/controlPicadora', controlPicadora);
 
 
 
